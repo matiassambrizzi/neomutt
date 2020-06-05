@@ -223,7 +223,7 @@ struct NmMboxData *nm_mdata_get(struct Mailbox *m)
   if (!m || (m->type != MUTT_NOTMUCH))
     return NULL;
 
-  return m->mdata;
+  return m->nm_mdata;
 }
 
 /**
@@ -308,14 +308,13 @@ static int init_mailbox(struct Mailbox *m)
   if (!m || (m->type != MUTT_NOTMUCH))
     return -1;
 
-  if (m->mdata)
+  if (m->nm_mdata)
     return 0;
 
-  m->mdata = nm_mdata_new(mailbox_path(m));
-  if (!m->mdata)
+  m->nm_mdata = nm_mdata_new(mailbox_path(m));
+  if (!m->nm_mdata)
     return -1;
 
-  m->mdata_free = nm_mdata_free;
   return 0;
 }
 
@@ -2441,6 +2440,7 @@ static int nm_mbox_sync(struct Mailbox *m)
  */
 static int nm_mbox_close(struct Mailbox *m)
 {
+  nm_mdata_free(&m->nm_mdata);
   return 0;
 }
 

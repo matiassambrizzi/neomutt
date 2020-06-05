@@ -124,6 +124,10 @@ struct Mailbox
   void *compress_info;                ///< Compressed mbox module private data
 #endif
 
+#ifdef USE_NOTMUCH
+  void *nm_mdata;                     ///< Notmuch private data
+#endif
+
   struct HashTable *id_hash;          ///< Hash Table by msg id
   struct HashTable *subj_hash;        ///< Hash Table by subject
   struct HashTable *label_hash;       ///< Hash Table for x-labels

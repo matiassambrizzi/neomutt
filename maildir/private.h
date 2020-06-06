@@ -41,7 +41,7 @@ struct Progress;
  */
 struct MaildirEmailData
 {
-  char *maildir_flags; ///< Unknown maildir flags
+  char *maildir_flags; ///< Unknown Maildir flags
 };
 
 /**

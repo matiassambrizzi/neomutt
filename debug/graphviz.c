@@ -1349,7 +1349,7 @@ static void dot_email(FILE *fp, const struct Email *e, struct ListHead *links)
   dot_type_number(fp, "score", e->score);
   dot_type_number(fp, "attach_total", e->attach_total);
 
-  dot_type_string(fp, "maildir_flags", e->maildir_flags, false);
+  // dot_type_string(fp, "maildir_flags", e->maildir_flags, false);
 
   if (e->date_sent != 0)
   {

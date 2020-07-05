@@ -2347,6 +2347,7 @@ static int nm_mbox_sync(struct Mailbox *m)
 
   header_cache_t *h = nm_hcache_open(m);
 
+  int mh_sync_errors = 0;
   for (int i = 0; i < m->msg_count; i++)
   {
     char old_file[PATH_MAX], new_file[PATH_MAX];
@@ -2378,7 +2379,10 @@ static int nm_mbox_sync(struct Mailbox *m)
     m->type = MUTT_NOTMUCH;
 
     if (rc)
-      break;
+    {
+      mh_sync_errors += 1;
+      continue;
+    }
 
     if (!e->deleted)
       email_get_fullpath(e, new_file, sizeof(new_file));
@@ -2393,6 +2397,9 @@ static int nm_mbox_sync(struct Mailbox *m)
 
     FREE(&edata->oldpath);
   }
+
+  if (mh_sync_errors > 0)
+    mutt_error(_("Unable to sync %d messages due to external mailbox modification"), mh_sync_errors);
 
   mutt_buffer_strcpy(&m->pathbuf, url);
   m->type = MUTT_NOTMUCH;

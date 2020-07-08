@@ -110,7 +110,7 @@ static void *dump(header_cache_t *hc, const struct Email *e, int *off, uint32_t 
   e_dump.searched = false;
   e_dump.matched = false;
   e_dump.collapsed = false;
-  e_dump.limited = false;
+  e_dump.visible = false;
   e_dump.num_hidden = 0;
   e_dump.recipient = 0;
   e_dump.pair = 0;
